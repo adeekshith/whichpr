@@ -1,0 +1,11 @@
+#!/bin/bash
+
+pullRequestCommitList=$(git rev-list --merges --grep="Merge" $1..HEAD)
+
+for pullRequestCommitId in $pullRequestCommitList ; do
+    thisMergeCommitrange=$(echo $(git log $pullRequestCommitId -n 1) | sed -E 's/.*Merge: ([a-z0-9]{7}) ([a-z0-9]{7}).*/\1..\2/')
+    if [[ $(git rev-list $thisMergeCommitrange) == *"$1"* ]]
+    then
+        echo "Corresponding Pull Request: $(git log $pullRequestCommitId -n 1)";
+    fi
+done

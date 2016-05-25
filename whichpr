@@ -7,6 +7,8 @@ for pullRequestCommitId in $pullRequestCommitList ; do
     if [[ $(git rev-list $thisMergeCommitrange) == *"$1"* ]]
     then
         echo "Corresponding Pull Request: $(git log $pullRequestCommitId -n 1)";
-        break
+        exit 0
     fi
 done
+
+echo "Cannot find pull request for commit $1";

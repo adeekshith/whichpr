@@ -7,5 +7,6 @@ for pullRequestCommitId in $pullRequestCommitList ; do
     if [[ $(git rev-list $thisMergeCommitrange) == *"$1"* ]]
     then
         echo "Corresponding Pull Request: $(git log $pullRequestCommitId -n 1)";
+        break
     fi
 done
